@@ -24,13 +24,8 @@ try:
     # Set the API key directly on the openai module
     openai.api_key = openai_api_key
 
-    # Initialize client with compatibility check
-    try:
-        # Try the newer client approach first
-        client = openai.OpenAI(api_key=openai_api_key)
-    except (TypeError, AttributeError):
-        # Fall back to the older approach if needed
-        client = openai
+    # Use the older API style for compatibility with Streamlit Cloud
+    client = openai
 except Exception as e:
     st.error(f"Error initializing OpenAI client: {type(e).__name__}")
     st.error("Please check your OpenAI API key configuration.")
@@ -108,7 +103,8 @@ def generate_quiz(transcript, quiz_type="mixed", difficulty="intermediate"):
     """
 
     try:
-        response = client.chat.completions.create(
+        # Use the older style API
+        response = openai.ChatCompletion.create(
             model="gpt-4-turbo",
             messages=[{"role": "system", "content": prompt}],
             temperature=0.7,
