@@ -11,17 +11,29 @@ from database import init_db, save_quiz_result, get_user_history
 # Set page configuration
 st.set_page_config(page_title="GermanTube Learning", page_icon="🇩🇪", layout="wide")
 
-# Get API key from environment variable or Streamlit secrets
-openai_api_key = os.getenv("OPENAI_API_KEY") or st.secrets["openai"]["api_key"]
-client = openai.OpenAI(api_key=openai_api_key)
-
 # Initialize database
 init_db()
 
-if not openai_api_key:
-    st.error(
-        "OpenAI API key is missing. Please set it in the environment variables or Streamlit secrets."
-    )
+try:
+    # Try to get API key from environment or secrets
+    if os.getenv("OPENAI_API_KEY"):
+        openai_api_key = os.getenv("OPENAI_API_KEY")
+    else:
+        openai_api_key = st.secrets["openai"]["api_key"]
+
+    # Set the API key directly on the openai module
+    openai.api_key = openai_api_key
+
+    # Initialize client with compatibility check
+    try:
+        # Try the newer client approach first
+        client = openai.OpenAI(api_key=openai_api_key)
+    except (TypeError, AttributeError):
+        # Fall back to the older approach if needed
+        client = openai
+except Exception as e:
+    st.error(f"Error initializing OpenAI client: {type(e).__name__}")
+    st.error("Please check your OpenAI API key configuration.")
     st.stop()
 
 
