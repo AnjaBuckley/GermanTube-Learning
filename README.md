@@ -4,6 +4,9 @@
 
 An application for English speakers to learn German through YouTube videos. The app fetches YouTube transcripts, generates interactive quizzes using AI, and tracks learning progress.
 
+![Uploading Screenshot 2025-03-08 at 16.01.31.png…]()
+
+
 ## Features
 
 - Paste any German YouTube video URL
