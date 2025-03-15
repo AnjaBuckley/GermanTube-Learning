@@ -3,6 +3,7 @@
 # GermanTube Learning
 
 An application for English speakers to learn German through YouTube videos. The app fetches YouTube transcripts, generates interactive quizzes using AI, and tracks learning progress.
+<img width="1150" alt="Screenshot 2025-03-08 at 16 03 58" src="https://github.com/user-attachments/assets/f4adfe88-5387-43ca-8b3c-b8e0bb75a404" />
 
 ## Live Demo
 
